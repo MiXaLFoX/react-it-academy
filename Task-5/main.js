@@ -6,22 +6,23 @@ const matrix = [
 ]
 
 function check (arr, str) {
-  const letters = [].concat(...arr).join('');
-
-  if (letters.includes(str)) {
-    return true
-  } else {
-    for (let i = 0; i < arr.length; i++){
-      let newArr = [];
-      for (let j = 0; j < arr[i].length; j++) {
-        newArr.push(arr[j][i]);
-      }
-
-      if(newArr.join('') === str) {
-        return true;
-      }
+  for (let i = 0; i < arr.length; i++) {
+    if(arr[i].join('').includes(str)) {
+      return true;
     }
   }
+
+  for (let i = 0; i < arr.length; i++){
+    let newArr = [];
+    for (let j = 0; j < arr[i].length; j++) {
+      newArr.push(arr[j][i]);
+    }
+
+    if(newArr.join('').includes(str)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 console.log(check(matrix, 'FACE')) // true
