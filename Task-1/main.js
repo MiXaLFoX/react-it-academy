@@ -1,17 +1,16 @@
 function max(arr, num) {
-  const quantityArr = [];
+
   let sum = 0;
 
   for (let i = 0; i < arr.length; i++) {
     sum += arr[i];
-    quantityArr.push(i);
 
     if (sum > num || arr[i] >= num) {
       sum -= arr[i];
-      quantityArr.pop(i);
+      arr.splice(i--, 1);
     }
   }
-  console.log(quantityArr.length);
+  console.log(arr.length);
 }
 
 
