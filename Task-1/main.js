@@ -1,18 +1,18 @@
-function max(arr, num) {
-
-  let sum = 0;
-
-  for (let i = 0; i < arr.length; i++) {
-    sum += arr[i];
-
-    if (sum > num || arr[i] >= num) {
-      sum -= arr[i];
-      arr.splice(i--, 1);
+function max(arr, maxNum) {
+  const info = arr.reduce(
+    (acc, currNum) => {
+      if (acc.sum + currNum > maxNum) {
+        return acc;
     }
-  }
-  console.log(arr.length);
-}
 
+    return {
+      sum: acc.sum + currNum,
+      count: acc.count + 1,
+    };
+
+  }, {sum: 0, count: 0} );
+  console.log(info.count);
+}
 
 max([1, 2], 7) // 2
 max([1, 2, 10, 1], 2) // 2
