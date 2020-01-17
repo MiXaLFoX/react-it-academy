@@ -1,5 +1,5 @@
 function max(arr, maxNum) {
-  const info = arr.reduce(
+  const info = arr.sort((a, b) => a - b).reduce(
     (acc, currNum) => {
       if (acc.sum + currNum > maxNum) {
         return acc;
@@ -18,3 +18,4 @@ max([1, 2], 7) // 2
 max([1, 2, 10, 1], 2) // 2
 max([1, 2, 3, 4], 7) // 3
 max([3, 7, 2, 9, 4], 15) // 3
+max([1, 10, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 11)
