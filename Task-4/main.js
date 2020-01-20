@@ -1,21 +1,36 @@
-function short(numbers) {
-  const range = [...numbers].sort((a, b) => a - b).reduce((acc, curr, i) => {
-    if (i === 0) {
-      acc.ranges.push(curr);
-      acc.rangeStart = curr;
+const short = (numbers) => {
+  const ranges = [...numbers].sort((a, b) => (a - b)).reduce((acc, currentNumber) => {
+    let currentRangeIndex = acc.currentRangeIndex;
+    let currentRange = [...(acc.ranges[currentRangeIndex] || [])];
+
+    if (currentRange.length === 0) {
+      currentRange.push(currentNumber);
     } else {
-      if (curr === acc.prev + 1) {
-        acc.ranges[acc.ranges.length - 1] = `${acc.rangeStart}-${curr}`;
+      if (currentRange[currentRange.length - 1] + 1 === currentNumber) {
+        currentRange.push(currentNumber);
       } else {
-        acc.ranges.push(curr);
-        acc.rangeStart = curr;
+        currentRange = [currentNumber];
+        currentRangeIndex++;
       }
     }
-    acc.prev = curr;
-    return acc;
-  }, { ranges: [] }).ranges.join(', ');
-  console.log(range);
+
+    const ranges = [...acc.ranges];
+    ranges[currentRangeIndex] = currentRange;
+
+    return {
+      currentRangeIndex,
+      ranges,
+    }
+  }, {ranges: [], currentRangeIndex: 0}).ranges.map((range) => {
+    if (range.length > 2) {
+      return [`${range[0]}-${range[range.length - 1]}` ];
+    }
+    return range;
+  }).map((arr) => arr.join(', ')).join(', ');
+
+  console.log(ranges);
 }
+
 
 short([1, 2, 3, 4, 5, 6]) // "1-6"
 short([1, 2, 3, 5, 6, 8]) // "1-3, 5, 6, 8"
