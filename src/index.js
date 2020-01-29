@@ -1,37 +1,45 @@
 class Counter {
-  constructor ({initial = 0, decr = 1, incr = 1, maxInRange = 100, minInRange = -100} = {}) {
-    this.initial = initial;
-    this.decr = decr;
-    this.incr = incr;
-    this.maxInRange = maxInRange;
-    this.minInRange = minInRange;
+  constructor ({incr, decr, minRange, maxRange, initital}) {
+    this.initial = initital || 0;
+    this.decr = decr || -1;
+    this.incr = incr || 1;
+    this.maxInRange = maxRange || 100;
+    this.minInRange = minRange || -100;
   }
 
   increment () {
     this.initial += this.incr;
-    if (this.initial + this.incr >= this.maxInRange) {
+    if (this.initial >= this.maxInRange) {
       this.initial = this.maxInRange;
     }
-    return this.initial;
   }
 
   decrement () {
-    this.initial -= this.decr;
-    if (this.initial - this.decr <= this.minInRange) {
+    this.initial += this.decr;
+    if (this.initial <= this.minInRange) {
       this.initial = this.minInRange;
     }
-    return this.initial;
+  }
+
+  changeCounter(val) {
+    if (val === '+') {
+      this.increment();
+    } else {
+      this.decrement();
+    }
+    document.querySelector('.num').innerText = this.initial;
   }
 
   createElemnt (tag, className, innerHtml, type, innerText) {
     const elem = document.createElement(tag);
+    const self = this;
     elem.className = className;
     elem.innerHTML = innerHtml;
+
     if (type === 'button') {
       elem.type = type;
-     elem.value = innerText;
-      elem.value === '+' ?
-        elem.addEventListener('click', () => this.increment()) : elem.addEventListener('click', () => this.decrement());
+      elem.value = innerText;
+      elem.addEventListener('click', () => self.changeCounter(elem.value));
     }
     return elem;
   }
@@ -48,6 +56,6 @@ class Counter {
   }
 }
 
-const counterOne = new Counter().init();
-const counterTwo = new Counter().init();
-const counterThree = new Counter().init();
+const counterOne = new Counter({initial: 0, incr: 1, decr: -1, minRange: -10, maxRange: 10}).init();
+const counterTwo = new Counter({}).init();
+const counterThree = new Counter({}).init();
