@@ -1,6 +1,6 @@
 class Counter {
-  constructor ({incr, decr, minRange, maxRange, initital}) {
-    this.initial = initital || 0;
+  constructor ({incr, decr, minRange, maxRange, initial}) {
+    this.initial = initial || 0;
     this.decr = decr || -1;
     this.incr = incr || 1;
     this.maxInRange = maxRange || 100;
@@ -57,5 +57,5 @@ class Counter {
 }
 
 const counterOne = new Counter({initial: 0, incr: 1, decr: -1, minRange: -10, maxRange: 10}).init();
-const counterTwo = new Counter({}).init();
+const counterTwo = new Counter({initial: 20, incr: 2, decr: -1, minRange: -10, maxRange: 10}).init();
 const counterThree = new Counter({}).init();
