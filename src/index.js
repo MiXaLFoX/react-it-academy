@@ -1,10 +1,11 @@
 class Counter {
-  constructor ({incr, decr, minRange, maxRange, initial}) {
+  constructor ({incr, decr, minRange, maxRange, initial} = {}) {
     this.initial = initial || 0;
     this.decr = decr || -1;
     this.incr = incr || 1;
     this.maxInRange = maxRange || 100;
     this.minInRange = minRange || -100;
+    this.counterElement = null;
   }
 
   increment () {
@@ -23,14 +24,17 @@ class Counter {
 
   changeCounter(val) {
     if (val === '+') {
-      this.increment();
+      this.increment()
     } else {
-      this.decrement();
+      this.decrement()
     }
-    document.querySelector('.num').innerText = this.initial;
+
+    if (!!this.counterElement) {
+      this.counterElement.innerText = this.initial;
+    }
   }
 
-  createElemnt (tag, className, innerHtml, type, innerText) {
+  createElement (tag, className, innerHtml, type, innerText) {
     const elem = document.createElement(tag);
     const self = this;
     elem.className = className;
@@ -45,10 +49,11 @@ class Counter {
   }
 
   render () {
-    const container = document.getElementById('count').appendChild(this.createElemnt ('div', 'counter', null));
-    container.appendChild(this.createElemnt ('input', 'btn-plus', null, 'button', '+'));
-    container.appendChild(this.createElemnt ('span', 'num', this.initial));
-    container.appendChild(this.createElemnt ('input', 'btn-minus', null, 'button', '-'));
+    const container = document.getElementById('count').appendChild(this.createElement ('div', 'counter', null));
+    container.appendChild(this.createElement ('input', 'btn-plus', null, 'button', '+'));
+    this.counterElement = this.createElement ('span', 'num', this.initial);
+    container.appendChild(this.counterElement);
+    container.appendChild(this.createElement ('input', 'btn-minus', null, 'button', '-'));
   }
 
   init () {
@@ -56,6 +61,7 @@ class Counter {
   }
 }
 
-const counterOne = new Counter({initial: 0, incr: 1, decr: -1, minRange: -10, maxRange: 10}).init();
-const counterTwo = new Counter({initial: 20, incr: 2, decr: -1, minRange: -10, maxRange: 10}).init();
-const counterThree = new Counter({}).init();
+
+const counterOne = new Counter({incr: 100, decr: -100, minRange: -10000, maxRange: 10000}).init();
+const counterTwo = new Counter({incr: 10, decr: -10, minRange: -100, maxRange: 100}).init();
+const counterThree = new Counter().init();

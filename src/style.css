@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background: rgba(231, 231, 255, 0.53);
+}
+p {
+    text-transform: uppercase;
+    font-family: Roboto;
+    font-size: 3em;
+    font-weight: bold;
+    color: red;
+}
+#count {
+    display: flex;
+    justify-content: space-around;
+}
+.counter {
+    padding: 1em;
+    display: flex;
+    justify-content: space-around;
+    font-size: 2em;
+}
+.counter span {
+    margin: 0 20px;
+}
