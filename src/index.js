@@ -65,3 +65,11 @@ class Counter {
 const counterOne = new Counter({incr: 100, decr: -100, minRange: -10000, maxRange: 10000}).init();
 const counterTwo = new Counter({incr: 10, decr: -10, minRange: -100, maxRange: 100}).init();
 const counterThree = new Counter().init();
+
+function sum () {
+  const nums = Array.from(document.querySelectorAll('.num'));
+  const numsArr = nums.map((el) => +el.innerText);
+  console.log(numsArr);
+}
+
+document.querySelectorAll('inpuy');
