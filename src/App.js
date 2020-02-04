@@ -5,8 +5,8 @@ class Counter extends React.Component {
     super (props);
     this.incr = props.data.increment || 1;
     this.decr = props.data.decrement || 1;
-    this.max = props.data.maxRange || 100;
-    this.min = props.data.minRange || -100;
+    this.max = props.data.maxRange || 10;
+    this.min = props.data.minRange || -10;
     this.state = {
       count: 0
     };
@@ -34,13 +34,12 @@ class Counter extends React.Component {
         count: this.state.count
       })
     }
-    console.log(this.props.increment);
   }
 
   render() {
     return (
       <div>
-        <button onClick={this.handleIncrement}> + </button>
+        <button onClick={this.handleIncrement} onClick={() => { this.props.updateData(this.state.sum)}}> + </button>
         <span> {this.state.count} </span>
         <button onClick={this.handleDecrement}> - </button>
       </div>
@@ -48,4 +47,24 @@ class Counter extends React.Component {
   }
 }
 
-export default Counter;
+class SuperCount extends React.Component {
+  state = {
+    sum: 0
+  };
+
+  updateData = (value) => {
+    this.setState({ sum: value })
+  };
+
+  render() {
+    return (
+    <div>
+      <p>counters sum: {this.state}</p>
+      <Counter updateData={this.updateData} data={{increment: 10, decrement: 10, maxRange: 100, minRange: -100}}/>
+      <Counter updateData={this.updateData} data={{}}/>
+    </div>
+    )
+  }
+}
+
+export default SuperCount;
