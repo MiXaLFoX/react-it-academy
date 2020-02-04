@@ -66,7 +66,7 @@ typings/
 .sass-cache/
 *.css.map
 
-src/
+
 # End of https://www.gitignore.io/api/node,sass
 
 .IDEA
