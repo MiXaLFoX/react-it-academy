@@ -26,18 +26,20 @@ const defaultOptions = [
     step: 5,
     range: {
       min: -100,
-      max: 20
+      max: 50
     }
   }
 ];
 
-const handleChange = (val, idx) => {
+const handleChange = (val) => {
 
-}
+};
 
 ReactDOM.render(
   <div>
-    {defaultOptions.map((options, idx) => <Counter key={idx} options={options} onChange={(val) => this.handleChange(val, idx)} />)}
+    <ul>
+      {defaultOptions.map((options, idx) => <li key={idx}><Counter options={options} onChange={(val) => this.handleChange(val)}/></li>) }
+    </ul>
     <div>Sum: {this.state.overalSum}</div>
   </div>,
   document.getElementById('root'));
