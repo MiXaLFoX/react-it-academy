@@ -51,7 +51,7 @@ class Counter extends React.Component {
     }
 
     if (!this.isNumValid(newCount)) {
-      newCount = operation === 'incr' ? max : min
+      newCount = operation === 'incr' ? max : min;
     }
     this.setState({
       count: newCount
@@ -75,14 +75,16 @@ class SuperCounter extends React.Component{
   constructor (props) {
     super (props);
     this.state = {
-      overalSum: 0
+      counters: []
     }
   }
 
-  handleChange = (val) => {
-    console.log('!!');
+  handleChange = (val, idx) => {
+    const counters = this.state.counters;
+    counters[idx] = val;
+
     this.setState ({
-      overalSum: this.state.overalSum += val
+      counters
     })
   };
 
@@ -91,11 +93,11 @@ class SuperCounter extends React.Component{
       <div>
         <ul>
           {defaultOptions.map((options, idx) =>
-          <li key={idx}>
-            <Counter options={options} onChange={(val) => this.handleChange(val)}/>
-          </li>) }
+            <li key={idx}>
+              <Counter options={options} onChange={(val) => this.handleChange(val, idx)}/>
+            </li>) }
         </ul>
-        <div>Sum: {this.state.overalSum}</div>
+        <div>Sum: {this.state.counters.reduce((acc, c) => ((c || 0) + acc), 0)}</div>
       </div>
     )
   }
