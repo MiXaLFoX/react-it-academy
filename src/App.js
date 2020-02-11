@@ -40,9 +40,9 @@ class Counter extends React.Component {
     return num >= this.props.options.range.min && num <= this.props.options.range.max;
   }
 
-  handleClick ({currentTarget}) {
+  handleClick (e) {
     const {step, range: {min, max}} = this.props.options;
-    const operation = currentTarget.getAttribute('data-operation');
+    const operation = e.target.getAttribute('data-operation');
     let newCount = this.state.count;
     if (operation === 'incr') {
       newCount = newCount + step;
@@ -50,16 +50,14 @@ class Counter extends React.Component {
       newCount = newCount - step;
     }
 
-    if (this.isNumValid(newCount)) {
-      this.setState({
-        count: newCount
-      });
-    } else {
-      this.setState({
-        count: operation === 'incr' ? max : min
-      });
+    if (!this.isNumValid(newCount)) {
+      newCount = operation === 'incr' ? max : min
     }
-    this.props.onChange(this.state.count);
+    this.setState({
+      count: newCount
+    }, () => {
+      this.props.onChange(newCount);
+    });
   }
 
   render() {
@@ -82,6 +80,7 @@ class SuperCounter extends React.Component{
   }
 
   handleChange = (val) => {
+    console.log('!!');
     this.setState ({
       overalSum: this.state.overalSum += val
     })
