@@ -10,6 +10,12 @@ class Form extends React.Component {
       statusChecked: false
     };
 
+    this.defaultValues = {
+      name: "",
+      position: "",
+      statusChecked: false
+    };
+
     this.inputChangeHandler = this.inputChangeHandler.bind(this);
     this.submit = this.submit.bind(this);
   }
@@ -21,13 +27,21 @@ class Form extends React.Component {
     this.setState({[name]: value});
   }
 
+  setInitial() {
+    this.setState({...this.defaultValues});
+  }
+
   submit(e) {
     e.preventDefault();
+    if (!this.state.name.length || !this.state.position.length) {
+      return;
+    }
     this.props.addPerson({
       name: this.state.name,
       position: this.state.position,
       statusChecked: this.state.statusChecked
     });
+    this.setInitial();
   }
 
     render() {

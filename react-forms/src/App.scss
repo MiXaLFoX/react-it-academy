@@ -3,6 +3,7 @@
   font-family: Roboto;
 }
 .wrapper {
+  background-color: #dff3f1;
   width: 70%;
   margin: auto;
   padding: 0.5em 1em;
@@ -89,4 +90,8 @@
 .worker {
   margin: 0;
   border-bottom: 1px solid #0ff3b9;
+}
+.worker:hover {
+  cursor: pointer;
+  background-color: #d7f2cf;
 }
