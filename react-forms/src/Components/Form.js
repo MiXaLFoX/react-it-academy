@@ -44,7 +44,7 @@ class Form extends React.Component {
     this.setInitial();
   }
 
-    render() {
+  render() {
     return (
       <div className="row">
         <div className="col">
@@ -61,7 +61,7 @@ class Form extends React.Component {
               <div className="row submit">
                 <div className="col-9">
                   <div className="form-check">
-                    <input className="form-check-input" name='statusChecked' type="checkbox" id="check" value={this.state.statusChecked} onChange={this.inputChangeHandler}/>
+                    <input className="form-check-input" name='statusChecked' type="checkbox" id="check" checked={this.state.statusChecked} onChange={this.inputChangeHandler}/>
                     <label className="form-check-label" htmlFor="check">
                       <span>Contractor</span>
                     </label>

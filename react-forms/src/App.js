@@ -1,40 +1,37 @@
 import React from 'react';
 import './App.scss';
-import Worker from './Components/Worker';
 import Form from './Components/Form';
-import nanoid from 'nanoid';
 
 class App extends React.Component {
   constructor (props) {
     super(props);
 
-    this.id = nanoid();
-
     this.state = {
       persons: []
     };
 
+    this.deletePer = function(idx){
+      return () => this.deletePerson(idx);
+    }.bind(this);
+
     this.addPerson = this.addPerson.bind(this);
-    this.deletePerson = this.deletePerson.bind(this);
   }
 
   addPerson (p) {
-    this.setState(state => {
-      state.persons.push(p);
-      console.log(this.state);
-      return {
-        ...state.persons
-      };
-    });
+    this.setState((state) => ({
+      persons: [
+        ...(state.persons || []),
+        p,
+      ]
+    }));
   }
 
   deletePerson (idx) {
-    console.log(idx);
     this.setState(state => {
-      state.persons.splice(idx, 1);
-      console.log(this.state);
+      const persons = [...state.persons];
+      persons.splice(idx, 1);
       return {
-        ...state.persons
+        persons
       }
     })
   }
@@ -44,8 +41,18 @@ class App extends React.Component {
       <div className="App container">
         <div className="wrapper">
           <h1>list</h1>
-          <Form options={['', 'junior', 'middle', 'senior']} addPerson={this.addPerson}/>
-          <Worker id={this.id} persons={this.state} deletePerson={this.deletePerson}/>
+          <Form options={['', 'junior developer', 'middle developer', 'senior developer', 'full-stack developer']} addPerson={this.addPerson}/>
+          <div className="list">
+            {this.state.persons.map((elem, idx)=> {
+              return (
+                <div key={idx} className="row worker" onClick={this.deletePer(idx)}>
+                  <div className="col-6">{elem.name}</div>
+                  <div className="col-4">{elem.position}</div>
+                  <div className="col-2">{elem.statusChecked ? '\u2714' : '\u2718'}</div>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
     )
