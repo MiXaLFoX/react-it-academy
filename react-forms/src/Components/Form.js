@@ -11,6 +11,7 @@ class Form extends React.Component {
     };
 
     this.defaultValues = {
+      id: null,
       name: "",
       position: "",
       statusChecked: false
@@ -18,6 +19,16 @@ class Form extends React.Component {
 
     this.inputChangeHandler = this.inputChangeHandler.bind(this);
     this.submit = this.submit.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.personData !== prevProps.personData) {
+
+      this.setState((state) => ({
+        ...state,
+        ...(!!this.props.personData ? this.props.personData : this.defaultValues),
+      }));
+    }
   }
 
   inputChangeHandler (e) {
@@ -39,7 +50,8 @@ class Form extends React.Component {
     this.props.addPerson({
       name: this.state.name,
       position: this.state.position,
-      statusChecked: this.state.statusChecked
+      statusChecked: this.state.statusChecked,
+      ...(!!this.state.id ? {id: this.state.id} : {}),
     });
     this.setInitial();
   }
@@ -68,7 +80,7 @@ class Form extends React.Component {
                   </div>
                 </div>
                 <div className="col-3">
-                  <input className="btn btn-primary" type="submit" value="add"/>
+                  <input className="btn btn-primary" type="submit" value={this.state.id ? "save" : "add"} />
                 </div>
               </div>
             </div>

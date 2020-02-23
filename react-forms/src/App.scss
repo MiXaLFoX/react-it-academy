@@ -87,9 +87,25 @@
     }
   }
 }
+.worker-header {
+  text-transform: uppercase;
+  font-weight: bold;
+  border-top: 1px solid #0ff3b9;
+}
 .worker {
   margin: 0;
   border-bottom: 1px solid #0ff3b9;
+  align-items: center;
+  .contractor {
+    text-align: center;
+  }
+  .edit {
+    text-align: end;
+  }
+  button {
+    font-size: 13px;
+    padding: 3px;
+  }
 }
 .worker:hover {
   cursor: pointer;
