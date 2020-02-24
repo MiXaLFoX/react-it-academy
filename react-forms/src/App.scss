@@ -8,7 +8,8 @@
   margin: auto;
   padding: 0.5em 1em;
   border: 1px solid #0ff3b9;
-  box-shadow: 0 0 0 0.2rem rgba(132, 216, 165, 0.25);
+  -webkit-box-shadow: 4px 4px 13px -1px rgba(20,36,17,0.7);
+  box-shadow: 4px 4px 13px -1px rgba(20,36,17,0.7);
   h1 {
     text-align: center;
     text-transform: uppercase;
@@ -17,9 +18,19 @@
 }
 
 .form-control {
-  background-color: #fff;
+  background-color: #f7f1f1;
   border: 2px solid #0ff3b9;
 }
+
+.form-control::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
+.form-control::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease;}
+.form-control:-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease;}
+.form-control:-ms-input-placeholder            {opacity: 1; transition: opacity 0.3s ease;}
+.form-control:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.3s ease;}
+.form-control:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.3s ease;}
+.form-control:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s ease;}
+.form-control:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease;}
+
 
 .form-control:focus {
   color: #495057;
@@ -91,6 +102,7 @@
   text-transform: uppercase;
   font-weight: bold;
   border-top: 1px solid #0ff3b9;
+  background-color: #d7f2cf;
 }
 .worker {
   margin: 0;

@@ -9,15 +9,15 @@ class App extends React.Component {
     super(props);
 
     this.positionsList = [
-      '',
-      'junior developer',
-      'middle developer',
-      'senior developer',
-      'full-stack developer',
-      'designer',
-      'business analyst',
-      'project manager',
-      'quality assurance engineer'
+      {position: '', status: false},
+      {position: 'junior developer', status: false},
+      {position: 'middle developer', status: true},
+      {position: 'senior developer', status: true},
+      {position: 'full-stack developer', status: true},
+      {position: 'designer', status: false},
+      {position: 'business analyst', status: true},
+      {position: 'project manager', status: true},
+      {position: 'quality assurance engineer', status: true}
     ];
 
     this.state = {
@@ -34,15 +34,15 @@ class App extends React.Component {
     this.addPerson = this.addPerson.bind(this);
   }
 
-  addPerson (p) {
-    if (p.id) {
+  addPerson (pers) {
+    if (pers.id) {
     //  save existing
       this.setState(state => {
-        const persons = [...state.persons].map((sp) => {
-          if (sp.id === p.id) {
-            return p;
+        const persons = [...state.persons].map((savedPers) => {
+          if (savedPers.id === pers.id) {
+            return pers;
           }
-          return sp;
+          return savedPers;
         });
         return {
           ...state,
@@ -58,7 +58,7 @@ class App extends React.Component {
         persons: [
           ...(state.persons || []),
           {
-            ...p,
+            ...pers,
             id: nanoid(),
           },
         ]
@@ -78,7 +78,7 @@ class App extends React.Component {
   }
 
   editPerson (id) {
-    const editPerson = this.state.persons.find((e) => e.id === id);
+    const editPerson = this.state.persons.find((editItem) => editItem.id === id);
     this.setState(state => ({
       ...state,
       editPerson,

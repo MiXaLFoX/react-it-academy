@@ -7,7 +7,8 @@ class Form extends React.Component {
     this.state = {
       name: '',
       position: '',
-      statusChecked: false
+      statusChecked: false,
+      contractorStatus: false
     };
 
     this.defaultValues = {
@@ -29,6 +30,8 @@ class Form extends React.Component {
         ...(!!this.props.personData ? this.props.personData : this.defaultValues),
       }));
     }
+    console.log(this.props.options.find(item => (item.position === this.state.position)).status);
+    this.position = (this.props.options || []).find(item => (item.position === this.state.position));
   }
 
   inputChangeHandler (e) {
@@ -47,11 +50,13 @@ class Form extends React.Component {
     if (!this.state.name.length || !this.state.position.length) {
       return;
     }
+
     this.props.addPerson({
       name: this.state.name,
       position: this.state.position,
-      statusChecked: this.state.statusChecked,
+      statusChecked: this.position.status ? this.state.statusChecked : !this.state.statusChecked,
       ...(!!this.state.id ? {id: this.state.id} : {}),
+      contractorStatus: this.position ? this.position.status : null
     });
     this.setInitial();
   }
@@ -63,17 +68,35 @@ class Form extends React.Component {
           <form onSubmit={this.submit}>
             <div className="form-group">
               <label htmlFor="name">Name</label>
-              <input className="form-control" type="text" name="name" id="name" value={this.state.name} onChange={this.inputChangeHandler}/>
+              <input
+                className="form-control"
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Enter your name"
+                value={this.state.name} onChange={this.inputChangeHandler}
+              />
               <label htmlFor="select">Position</label>
-              <select className="form-control" name="position" id="select" value={this.state.position} onChange={this.inputChangeHandler}>
-                {this.props.options.map((position, idx) => {
-                  return <option value={position} key={idx}>{position}</option>
+              <select
+                className="form-control"
+                name="position"
+                id="select"
+                value={this.state.position} onChange={this.inputChangeHandler}
+              >
+                {this.props.options.map((pos, idx) => {
+                  return <option value={pos.position} key={idx}>{pos.position}</option>
                 })}
               </select>
               <div className="row submit">
                 <div className="col-9">
                   <div className="form-check">
-                    <input className="form-check-input" name='statusChecked' type="checkbox" id="check" checked={this.state.statusChecked} onChange={this.inputChangeHandler}/>
+                    <input
+                      className="form-check-input"
+                      name='statusChecked'
+                      type="checkbox"
+                      id="check"
+                      checked={this.state.statusChecked} onChange={this.inputChangeHandler}
+                    />
                     <label className="form-check-label" htmlFor="check">
                       <span>Contractor</span>
                     </label>
