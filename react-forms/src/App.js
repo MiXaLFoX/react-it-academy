@@ -86,6 +86,8 @@ class App extends React.Component {
   }
 
   render () {
+    const tick = <span className="green">&#10004;</span>;
+    const cross = <span className="red">&#10008;</span>;
     return (
       <div className="App container">
         <div className="wrapper">
@@ -107,7 +109,7 @@ class App extends React.Component {
                 <div key={idx} className="row worker">
                   <div className="col-4 name">{elem.name}</div>
                   <div className="col-3 position">{elem.position}</div>
-                  <div className="col-2 contractor">{elem.statusChecked ? '\u2714' : '\u2718'}</div>
+                  <div className="col-2 contractor">{elem.statusChecked ? tick : cross}</div>
                   <div className="col-3 edit">
                     <button
                       type="button"

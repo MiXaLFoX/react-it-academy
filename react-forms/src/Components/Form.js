@@ -30,7 +30,7 @@ class Form extends React.Component {
         ...(!!this.props.personData ? this.props.personData : this.defaultValues),
       }));
     }
-    console.log(this.props.options.find(item => (item.position === this.state.position)).status);
+
     this.position = (this.props.options || []).find(item => (item.position === this.state.position));
   }
 
@@ -54,7 +54,7 @@ class Form extends React.Component {
     this.props.addPerson({
       name: this.state.name,
       position: this.state.position,
-      statusChecked: this.position.status ? this.state.statusChecked : !this.state.statusChecked,
+      statusChecked: this.position.status && this.state.statusChecked,
       ...(!!this.state.id ? {id: this.state.id} : {}),
       contractorStatus: this.position ? this.position.status : null
     });
