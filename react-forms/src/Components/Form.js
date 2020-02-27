@@ -63,52 +63,50 @@ class Form extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col">
-          <form onSubmit={this.submit}>
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input
-                className="form-control"
-                type="text"
-                name="name"
-                id="name"
-                placeholder="Enter your name"
-                value={this.state.name} onChange={this.inputChangeHandler}
-              />
-              <label htmlFor="select">Position</label>
-              <select
-                className="form-control"
-                name="position"
-                id="select"
-                value={this.state.position} onChange={this.inputChangeHandler}
-              >
-                {this.props.options.map((pos, idx) => {
-                  return <option value={pos.position} key={idx}>{pos.position}</option>
-                })}
-              </select>
-              <div className="row submit">
-                <div className="col-9">
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      name='statusChecked'
-                      type="checkbox"
-                      id="check"
-                      checked={this.state.statusChecked} onChange={this.inputChangeHandler}
-                    />
-                    <label className="form-check-label" htmlFor="check">
-                      <span>Contractor</span>
-                    </label>
-                  </div>
-                </div>
-                <div className="col-3">
-                  <input className="btn btn-primary" type="submit" value={this.state.id ? "save" : "add"} />
+      <div className="col-4 form">
+        <form onSubmit={this.submit}>
+          <div className="form-group">
+            <label htmlFor="name">Name</label>
+            <input
+              className="form-control"
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter your name"
+              value={this.state.name} onChange={this.inputChangeHandler}
+            />
+            <label htmlFor="select">Position</label>
+            <select
+              className="form-control"
+              name="position"
+              id="select"
+              value={this.state.position} onChange={this.inputChangeHandler}
+            >
+              {this.props.options.map((pos, idx) => {
+                return <option value={pos.position} key={idx}>{pos.position}</option>
+              })}
+            </select>
+            <div className="row submit">
+              <div className="col-9">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    name='statusChecked'
+                    type="checkbox"
+                    id="check"
+                    checked={this.state.statusChecked} onChange={this.inputChangeHandler}
+                  />
+                  <label className="form-check-label" htmlFor="check">
+                    <span>Contractor</span>
+                  </label>
                 </div>
               </div>
+              <div className="col-3">
+                <input className="btn btn-primary" type="submit" value={this.state.id ? "save" : "add"}/>
+              </div>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     )
   }

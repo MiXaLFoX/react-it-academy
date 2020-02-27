@@ -25,13 +25,9 @@ class App extends React.Component {
       editPerson: null
     };
 
-    this.deletePer = function(idx){
-      return () => this.deletePerson(idx);
-    }.bind(this);
-    this.edit = function (id) {
-      return () => this.editPerson(id);
-    }.bind(this);
+    this.edit = this.editPerson.bind(this);
     this.addPerson = this.addPerson.bind(this);
+    this.deletePerson = this.deletePerson.bind(this);
   }
 
   addPerson (pers) {
@@ -66,47 +62,57 @@ class App extends React.Component {
     }
   }
 
-  deletePerson (idx) {
-    this.setState(state => {
-      const persons = [...state.persons];
-      persons.splice(idx, 1);
-      return {
-        ...state,
-        persons
-      }
-    })
+  deletePerson (e) {
+    if (e.target.innerHTML === "remove") {
+      const idx = this.state.persons.findIndex((item) => item.id === e.target.closest('.worker').id);
+      this.setState(state => {
+        const persons = [...state.persons];
+        persons.splice(idx, 1);
+        return {
+          ...state,
+          persons
+        }
+      })
+    }
   }
 
-  editPerson (id) {
-    const editPerson = this.state.persons.find((editItem) => editItem.id === id);
-    this.setState(state => ({
-      ...state,
-      editPerson,
-    }));
+  editPerson (e) {
+    if (e.target.innerHTML === "edit") {
+      const editPerson = this.state.persons.find((editItem) => editItem.id === e.target.closest('.worker').id);
+      this.setState(state => ({
+        ...state,
+        editPerson,
+      }));
+    }
   }
 
   render () {
     const tick = <span className="green">&#10004;</span>;
     const cross = <span className="red">&#10008;</span>;
     return (
-      <div className="App container">
-        <div className="wrapper">
-          <h1>employee editor</h1>
+      <div className="App container-fluid">
+        <div className="row">
+          <div className="col">
+            <h1>employee editor</h1>
+          </div>
+        </div>
+        <div className="row wrapper">
           <Form
             options={this.positionsList}
             personData={this.state.editPerson}
             addPerson={this.addPerson}
           />
-          <div className="list">
+          <div className="col-1"></div>
+          <div className="col-7 list" onClick={this.deletePerson} onClick={this.edit}>
             <div className="row worker worker-header">
               <div className="col-4 name">name</div>
               <div className="col-3 position">position</div>
               <div className="col-2 contractor">contractor</div>
               <div className="col-3 edit">edit</div>
             </div>
-            {this.state.persons.map((elem, idx)=> {
+            {this.state.persons.map((elem) => {
               return (
-                <div key={idx} className="row worker">
+                <div id={elem.id} key={elem.id} className="row worker">
                   <div className="col-4 name">{elem.name}</div>
                   <div className="col-3 position">{elem.position}</div>
                   <div className="col-2 contractor">{elem.statusChecked ? tick : cross}</div>
@@ -114,20 +120,25 @@ class App extends React.Component {
                     <button
                       type="button"
                       className="btn btn-outline-success"
-                      onClick={this.edit(elem.id)}>
+                    >
                       edit
                     </button>
                     <button
                       type="button"
                       className="btn btn-outline-success"
                       disabled={!!this.state.editPerson && elem.id === this.state.editPerson.id}
-                      onClick={this.deletePer(idx)}>
+                    >
                       remove
                     </button>
                   </div>
                 </div>
               )
             })}
+          </div>
+        </div>
+        <div className="row footer">
+          <div className="col">
+            <footer>react app</footer>
           </div>
         </div>
       </div>

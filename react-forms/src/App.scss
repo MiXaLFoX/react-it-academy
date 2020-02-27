@@ -1,19 +1,27 @@
 @import '~bootstrap/scss/bootstrap.scss';
+#root {
+  background-color: rgba(38, 141, 207, 0.11);
+}
 .App {
   font-family: Roboto;
 }
+.container {
+  margin: 0;
+}
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #0d3349;
+}
 .wrapper {
-  background-color: #dff3f1;
-  width: 70%;
-  margin: auto;
+  height: 80vh;
   padding: 0.5em 1em;
-  border: 1px solid #0ff3b9;
-  -webkit-box-shadow: 4px 4px 13px -1px rgba(20,36,17,0.7);
-  box-shadow: 4px 4px 13px -1px rgba(20,36,17,0.7);
-  h1 {
-    text-align: center;
-    text-transform: uppercase;
-    color: #0d3349;
+  .form, .list {
+    padding: 1em;
+    border: 1px solid #0ff3b9;
+    background-color: #dff3f1;
+    -webkit-box-shadow: 5px 5px 8px -6px rgba(20,36,17,0.7);
+    box-shadow: 5px 5px 8px -6px rgba(20,36,17,0.7);
   }
 }
 
@@ -30,7 +38,6 @@
 .form-control:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.3s ease;}
 .form-control:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s ease;}
 .form-control:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease;}
-
 
 .form-control:focus {
   color: #495057;
@@ -58,6 +65,7 @@
     box-shadow: 0 0 0 0.2rem rgba(38, 255, 145, 0.3);
   }
   .form-check{
+    padding: 0;
     span {
       margin-left: 1rem;
       font-size: 20px;
@@ -132,4 +140,9 @@
 .worker:hover {
   cursor: pointer;
   background-color: #d7f2cf;
+}
+.footer {
+  font-weight: bold;
+  font-size: 30px;
+  padding: 0.8em 0;
 }
