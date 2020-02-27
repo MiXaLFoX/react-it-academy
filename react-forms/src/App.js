@@ -28,6 +28,7 @@ class App extends React.Component {
     this.edit = this.editPerson.bind(this);
     this.addPerson = this.addPerson.bind(this);
     this.deletePerson = this.deletePerson.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   addPerson (pers) {
@@ -86,6 +87,10 @@ class App extends React.Component {
     }
   }
 
+  handleEdit (e) {
+    e.target.innerHTML === "edit" ? this.editPerson (e) : this.deletePerson(e);
+  }
+
   render () {
     const tick = <span className="green">&#10004;</span>;
     const cross = <span className="red">&#10008;</span>;
@@ -103,7 +108,7 @@ class App extends React.Component {
             addPerson={this.addPerson}
           />
           <div className="col-1"></div>
-          <div className="col-7 list" onClick={this.deletePerson} onClick={this.edit}>
+          <div className="col-7 list" onClick={this.handleEdit}>
             <div className="row worker worker-header">
               <div className="col-4 name">name</div>
               <div className="col-3 position">position</div>
