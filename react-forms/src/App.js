@@ -64,7 +64,7 @@ class App extends React.Component {
   }
 
   deletePerson (e) {
-    if (e.target.innerHTML === "remove") {
+    if (e.target.getAttribute('role') === "del") {
       const idx = this.state.persons.findIndex((item) => item.id === e.target.closest('.worker').id);
       this.setState(state => {
         const persons = [...state.persons];
@@ -78,7 +78,7 @@ class App extends React.Component {
   }
 
   editPerson (e) {
-    if (e.target.innerHTML === "edit") {
+    if (e.target.getAttribute('role') === "edit") {
       const editPerson = this.state.persons.find((editItem) => editItem.id === e.target.closest('.worker').id);
       this.setState(state => ({
         ...state,
@@ -88,7 +88,7 @@ class App extends React.Component {
   }
 
   handleEdit (e) {
-    e.target.innerHTML === "edit" ? this.editPerson (e) : this.deletePerson(e);
+    e.target.getAttribute('role') === "edit" ? this.editPerson (e) : this.deletePerson(e);
   }
 
   render () {
@@ -96,9 +96,9 @@ class App extends React.Component {
     const cross = <span className="red">&#10008;</span>;
     return (
       <div className="App container-fluid">
-        <div className="row">
+        <div className="row header">
           <div className="col">
-            <h1>employee editor</h1>
+            <h1>employee management system</h1>
           </div>
         </div>
         <div className="row wrapper">
@@ -125,12 +125,14 @@ class App extends React.Component {
                     <button
                       type="button"
                       className="btn btn-outline-success"
+                      role="edit"
                     >
                       edit
                     </button>
                     <button
                       type="button"
                       className="btn btn-outline-success"
+                      role="del"
                       disabled={!!this.state.editPerson && elem.id === this.state.editPerson.id}
                     >
                       remove

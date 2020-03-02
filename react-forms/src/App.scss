@@ -1,6 +1,6 @@
 @import '~bootstrap/scss/bootstrap.scss';
 #root {
-  background-color: rgba(38, 141, 207, 0.11);
+  background-color: rgb(254, 255, 253);
 }
 .App {
   font-family: Roboto;
@@ -8,14 +8,22 @@
 .container {
   margin: 0;
 }
+.header, .footer {
+  background-color: #5e3f80;
+  color: #ffffff;
+}
 h1 {
+  padding: 12px 0;
+  margin: 0;
   text-align: center;
   text-transform: uppercase;
-  color: #0d3349;
 }
 .wrapper {
-  height: 80vh;
   padding: 0.5em 1em;
+  .list {
+    height: 78vh;
+    overflow-y: scroll;
+  }
   .form, .list {
     padding: 1em;
     border: 1px solid #0ff3b9;
@@ -29,7 +37,15 @@ h1 {
   background-color: #f7f1f1;
   border: 2px solid #0ff3b9;
 }
-
+.has-error{
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+.error {
+  color: #a94442;
+  text-align: end;
+}
 .form-control::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
 .form-control::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease;}
 .form-control:-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease;}

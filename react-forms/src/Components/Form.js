@@ -8,7 +8,10 @@ class Form extends React.Component {
       name: '',
       position: '',
       statusChecked: false,
-      contractorStatus: false
+      contractorStatus: false,
+      formErrors: {name: '', select: ''},
+      nameValid: false,
+      selectValid: false,
     };
 
     this.defaultValues = {
@@ -38,7 +41,34 @@ class Form extends React.Component {
     const name = e.target.name;
     const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
-    this.setState({[name]: value});
+    this.setState({[name]: value}, () => { this.validateField(name, value) });
+  }
+
+  validateField(fieldName, value) {
+    let fieldValidationErrors = this.state.formErrors;
+    let nameValid = this.state.nameValid;
+    let selectValid = this.state.selectValid;
+    switch(fieldName) {
+      case 'name':
+        nameValid = value.length >= 6;
+        fieldValidationErrors.name = nameValid ? '' : 'name must be longer then 6 characters';
+        break;
+      case 'select':
+        selectValid = value.length > 0;
+        fieldValidationErrors.select = selectValid ? '': 'choose an option';
+        break;
+      default:
+        break;
+    }
+    this.setState({formErrors: fieldValidationErrors,
+      nameValid: nameValid,
+      selectValid: selectValid,
+    });
+  }
+
+  validateForm() {
+    this.setState({formValid: this.state.nameValid &&
+        this.state.selectValid});
   }
 
   setInitial() {
@@ -47,7 +77,7 @@ class Form extends React.Component {
 
   submit(e) {
     e.preventDefault();
-    if (!this.state.name.length || !this.state.position.length) {
+    if (!this.validateForm()) {
       return;
     }
 
@@ -65,19 +95,33 @@ class Form extends React.Component {
     return (
       <div className="col-4 form">
         <form onSubmit={this.submit}>
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
+          <div className={this.state.formErrors.name || this.state.formErrors.select ? 'form-group has-error' : 'form-group'}>
+            <div className="row">
+              <div className="col-5">
+                <label htmlFor="name">Name</label>
+              </div>
+              <div className="col-7">
+                <div className="error">{this.state.formErrors.name}</div>
+              </div>
+            </div>
             <input
-              className="form-control"
+              className={this.state.formErrors.name ? 'form-control has-error' : 'form-control'}
               type="text"
               name="name"
               id="name"
               placeholder="Enter your name"
               value={this.state.name} onChange={this.inputChangeHandler}
             />
-            <label htmlFor="select">Position</label>
+            <div className="row">
+              <div className="col-5">
+                <label htmlFor="select">Position</label>
+              </div>
+              <div className="col-7">
+                <div className="error">{this.state.formErrors.select}</div>
+              </div>
+            </div>
             <select
-              className="form-control"
+              className={this.state.formErrors.select ? 'form-control has-error' : 'form-control'}
               name="position"
               id="select"
               value={this.state.position} onChange={this.inputChangeHandler}
