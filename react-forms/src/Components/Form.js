@@ -12,6 +12,7 @@ class Form extends React.Component {
       formErrors: {name: '', select: ''},
       nameValid: false,
       selectValid: false,
+      formValid: false
     };
 
     this.defaultValues = {
@@ -53,8 +54,8 @@ class Form extends React.Component {
         nameValid = value.length >= 6;
         fieldValidationErrors.name = nameValid ? '' : 'name must be longer then 6 characters';
         break;
-      case 'select':
-        selectValid = value.length > 0;
+      case 'position':
+        selectValid = value.length !== '';
         fieldValidationErrors.select = selectValid ? '': 'choose an option';
         break;
       default:
@@ -77,18 +78,16 @@ class Form extends React.Component {
 
   submit(e) {
     e.preventDefault();
-    if (!this.validateForm()) {
-      return;
+    if (this.validateForm()) {
+      this.props.addPerson({
+        name: this.state.name,
+        position: this.state.position,
+        statusChecked: this.position.status && this.state.statusChecked,
+        ...(!!this.state.id ? {id: this.state.id} : {}),
+        contractorStatus: this.position ? this.position.status : null
+      });
+      this.setInitial();
     }
-
-    this.props.addPerson({
-      name: this.state.name,
-      position: this.state.position,
-      statusChecked: this.position.status && this.state.statusChecked,
-      ...(!!this.state.id ? {id: this.state.id} : {}),
-      contractorStatus: this.position ? this.position.status : null
-    });
-    this.setInitial();
   }
 
   render() {
